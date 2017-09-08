@@ -23,20 +23,22 @@ namespace console_csharp_snippets_sample
             switch (key.KeyChar)
             {
                 case 'a':
-                    Console.WriteLine("\nRunning app-only mode\n\n");
+                    Console.WriteLine("\nRunning app-only mode.\n\n");
                     AppMode.AppModeRequests();
                     break;
                 case 'u':
-                    Console.WriteLine("\nRunning in user mode\n\n");
+                    Console.WriteLine("\nRunning in user mode.\n\n");
                     UserMode.UserModeRequests();
                     break;
                 case 'b':
-                    Console.WriteLine("\nRunning user mode, followed by app-only mode\n\n");
+                    Console.WriteLine("\nRunning user mode, followed by app-only mode.\n\n");
                     UserMode.UserModeRequests();
+                    Console.WriteLine("\nFinished running user mode. Press any key to run app-only mode.\n\n");
+                    Console.ReadKey();
                     AppMode.AppModeRequests();                   
                     break;
                 default:
-                    Console.WriteLine("\nSelection not recognized. Running in user mode\n\n");
+                    Console.WriteLine("\nSelection not recognized. Running in user mode.\n\n");
                     UserMode.UserModeRequests();
                     break;
             }
