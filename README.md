@@ -1,55 +1,90 @@
 # Microsoft Graph API Console App
 
-Console App using Microsoft Graph Client Library.
+## Table of contents
 
-This console application is a .NET sample, using the Microsoft Graph Client library. It demonstrates common calls to the Graph API including Getting Users, Groups, Group Membership, and Mail. The sample app demonstrates both delegated authentication (user mode, requiring a user to sign in to the app and application authentication (app mode, where the app access is made using the application's identity without a user needing to be present).  When running in user mode, some operations that the sample performs will **only** be possible if the signed-in user is a company administrator.
+* [Introduction](#introduction)
+* [Prerequisites](#prerequisites)
+* [Register the **delegated permissions** application](#Register-the-delegated-permissions-application )
+* [Register the **application permissions** application](#Register-the-application-permissions-application )
+* [Build and run the sample](#build-and-run-the-sample)
+* [Questions and comments](#questions-and-comments)
+* [Contributing](#contributing)
+* [Additional resources](#additional-resources)
 
-The sample app demonstrates both delegated authentication (user mode, requiring a user to sign in to the app and application authentication (app mode, where the app access is made using the application's identity without a user needing to be present). When running in user mode, some operations that the sample performs will only be possible if the signed-in user is a company administrator.
+## Introduction
 
-The sample uses the Microsoft Authentication Library (MSAL) for authentication. It requires you to configure two applications in the Application Registration Portal: one using *application permissions* or OAuth Client Credentials, and a second one using user *delegated permissions* - to execute update operations, you will need to sign-in with an account that has Administrative permissions. Configuring the console sample against your own tenant is described in Step 3 below).
+This sample application provides a repository of code snippets that use the Microsoft Graph to perform common tasks, such as sending email, managing groups, and other activities from within a Windows console application. It uses the [Microsoft Graph .NET Client SDK](https://github.com/microsoftgraph/msgraph-sdk-dotnet) to work with data returned by the Microsoft Graph. 
+
+The sample uses the Microsoft Authentication Library (MSAL) for authentication. The sample demonstrates both delegated and application permissions.
+
+**Delegated permissions** are used by apps that have a signed-in user present. For these apps either the user or an administrator consents to the permissions that the app requests and the app is delegated permission to act as the signed-in user when making calls to Microsoft Graph. Some delegated permissions can be consented to by non-administrative users, but some higher-privileged permissions require administrator consent. This application contains some groups-related operations that require administrative consent, and the associated permissions required to do them, are commented by default.
+
+**Application permissions** are used by apps that run without a signed-in user present; you can use this type of permission for apps that run as background services or daemons and that therefore will neither have nor require user consent. Application permissions can only be consented by an administrator. 
+
+If you want to use both types of permissions, you'll need to create and configure two applications in the [Application Registration Portal](https://apps.dev.microsoft.com/), one for **delegated permisssions** and another fro **application permissions**. The sample is structured so that you can configure only one application if you're interested in only one type of permission. Use the **UserMode"** class if you're interested only in **delegated permissions** and the **AppMode** class if you're interested only in **application permissions**.
+
+See [Delegated permissions, Application permissions, and effective permissions](https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#delegated-permissions-application-permissions-and-effective-permissions) for more information about these permission types. Also see [Get access without a user](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service) for more information on **application permissions** specifically.
 
 
-## Step 1: Clone or download this repository
+## Prerequisites
 
+This sample requires the following:
 
-## Step 2: Run the sample in Visual Studio
-The sample app is preconfigured to read data from an Office 365 tenant. 
-Run the sample application by selecting F5, selecting to run in both modes (user and app mode).  The app will require Admin credentials to perform *all* operations.
+- [Visual Studio](https://www.visualstudio.com/en-us/downloads) 
 
-## Step 3: Running this application
-Register the Sample app for your own tenant 
+-  An [Office 365 for business account](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_Office365Account). An Office 365 administrator account is required to run admin-level operations and to consent to application permissions. You can sign up for [an Office 365 Developer subscription](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_Office365Account) that includes the resources that you need to start building apps.
+
+<a name="Register-the-delegated-permissions-application"></a>
+## Register the **delegated permissions** application 
 
 1. Sign in to the [Application Registration Portal](https://apps.dev.microsoft.com/) using your Microsoft account.
 
-3. Click **Add an app**, and enter a friendly name for the application, for example **Console App for Microsoft Graph**. Click **Create**.
+2. Select **Add an app**, and enter a friendly name for the application (such as **Console App for Microsoft Graph (Delegated perms)**). Click **Create**.
 
-4. Click **Service and Daemon App** and **Skip the guided setup**.
+3. Select the **Mobile and Desktop App** tile and then after the app is created, click the **Skip the guided setup** link in the top right-hand corner. The **delegated permissions** operations in this sample use permissions that are specified in the AuthenticationHelper.cs file. This is why you don't need to assign any permissions to the app on this page.
 
+4. Open the solution and then the Constants.cs file in Visual Studio. 
 
-5. Under **Application Secrets**, click **Generate New Password**. Be sure to copy this secret/password before closing the popup window that displays it. This is the only time you'll be able to see all of it.
+5. Make the **Application Id** value for this app the value of the **ClientIdForUserAuthn** string.
 
-6. Open the solution and then the Constants.cs file in Visual Studio. Make this application secret the value of the **ClientSecret** string. Make the **Application Id** value for this app the value of the **ClientIdForAppAuthn** string. The **Application Id** value appears near the top of the app registration page.
+<a name="Register-the-application-permissions-application"></a>
+## Register the **application permissions** application 
 
-7. Under **Platforms** and **Redirect URLs**, click **Add URL** and add **https://login.microsoftonline.com** as a new redirect URL. This matches the **RedirectUriForAppAuthn** value in this solution's Constants.cs file. Click the **Save** button that appears when you make this change.
+1. Sign in to the [Application Registration Portal](https://apps.dev.microsoft.com/) using your Microsoft account.
 
-8. Under **Microsoft Graph permissions** and **Application permissions**, add the following permissions: Directory.ReadAll, Group.ReadWrite.All, Mail.Read, Mail.ReadWrite, and User.Read.All. All of these are "admin-only" permissions. Click the **Save** button that appears when you make this change.
+2. Select **Add an app**, and enter a friendly name for the application (such as **Console App for Microsoft Graph (Application perms)**). Click **Create**.
 
-9. Now we'll need to configure a second application for the user mode portion of the console app. Follow steps 1-3, and then click **Mobile and Desktop App** before clicking **Skip the guided setup**.
+3. Select the **Service and Daemon App** tile and then after the app is created, click the **Skip the guided setup** link in the top right-hand corner.
 
-10. Make the **Application Id** value for this app the value of the **ClientIdForUserAuthn** string.
+4. Under **Application Secrets**, select **Generate New Password**. This will create the value you'll supply for **ClientSecret** in the Constants.cs file.  Be sure to copy this secret/password before closing the popup window that displays it. This is the only time you'll be able to see all of it.
 
-14. Build and run your application.  
-+ You might run into some "missing assembly reference?" errors when you build. Make sure NuGet package restore is enabled, and that the packages in packages.config are installed. Sometimes, Visual Studio doesn't immediately find the package, so try building again. If all else fails, you can add the references manually.
-+ When you run it, select user mode the first time. You will need to authenticate with valid tenant administrator credentials for your company when you run the application (required for the Create/Update/Delete operations), and consent the first time you use the sample app.
-+ If you want to run the console app in app mode, you'll need to force consent manually, beforehand. Here, an admin user will need to consent.  You can force consent by opening a browser, and going to the following URL, replacing **{app-mode-application-id}** with the Application ID for your app mode application and **{tenant}** with your tenant Id:
+5. Open the solution and then the Constants.cs file in Visual Studio. Make this application secret the value of the **ClientSecret** string. Make the **Application Id** value for this app the value of the **ClientIdForAppAuthn** string. The **Application Id** value appears near the top of the app registration page.
+
+6. Under **Platforms** and **Redirect URLs**, click **Add URL** and add **https://login.microsoftonline.com** as a new redirect URL. This matches the **RedirectUriForAppAuthn** value in this solution's Constants.cs file. Click the **Save** button that appears when you make this change.
+
+7. Under **Microsoft Graph permissions** and **Application permissions**, add the following permissions: Directory.Read.All, Group.ReadWrite.All, Mail.Read, Mail.ReadWrite, and User.Read.All. All of these are "admin-only" permissions that will be used only by the **application permissions** operations in the sample. Click the **Save** button that appears when you make this change.
+
+After you've created  and configured the application, you'll need to force consent manually with an administrator account on your [Office 365 for business account](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_Office365Account).
+
+To do this, open a browser, and navigate to the following URL, replacing **{application-id}** with the Application ID for your application and **{tenant}** with your tenant Id:
+
    ```
    https://login.microsoftonline.com/{tenant}/adminconsent?
-   client_id={app-mode-application-id}
+   client_id={application-id}
    &state=12345
    &redirect_uri=https://login.microsoftonline.com
    ```
-After signing in, click **Accept** in the consent page.  You can then close the browser.  Now that you've pre-consented, you can try running the console sample in app mode.
 
+After signing in, click **Accept** in the consent page.  You can then close the browser.  Now that you've pre-consented, you can try running the console sample in app mode. 
+
+## Build and run the sample 
+
+1. Open the sample solution in Visual Studio.
+2. Press F5 to build and run the sample. This will restore the NuGet package dependencies and open the console application.
+3. Select User mode to run the application with **delegated permissions** only. Select App mode to run the application with **application permissions** only. Select both to run using both types of permissions.
+4. When you run User mode, you'll be prompted to sign in with an account on your Office 365 tenant and consent to the permissions that the application requests. If you want to run the groups-related operations in the **UserMode** class, you'll need to uncomment the **GetDetailsForGroups** method in the UserMode.cs file and the **Group.Read.All** scope in the AuthenticationHelper.cs file. After you make those changes only an admin will be able to sign in and consent. Otherwise, you can sign in and consent with a non-admin user.
+5. When you run App mode, the application will begin performing a number of common groups-related tasks that only an admin can do. Since you've already authorized the application to make these operations, you won't be prompted to sign in and consent.
+   
 ## Questions and comments
 
 We'd love to get your feedback about the Microsoft Graph API Console App. You can send your questions and suggestions in the [Issues](https://github.com/microsoftgraph/console-csharp-snippets-sample/issues) section of this repository.
@@ -65,6 +100,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 ## Additional resources
 
 - [Get access without a user](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service)
+- [Delegated permissions, Application permissions, and effective permissions](https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#delegated-permissions-application-permissions-and-effective-permissions)
 - [Other Microsoft Graph Connect samples](https://github.com/MicrosoftGraph?utf8=%E2%9C%93&query=-Connect)
 - [Microsoft Graph](https://graph.microsoft.io)
 
