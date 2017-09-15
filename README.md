@@ -1,4 +1,4 @@
-# Microsoft Graph API Console App
+# Microsoft Graph Console Snippets App
 
 ## Table of contents
 
