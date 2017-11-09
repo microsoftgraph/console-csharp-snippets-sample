@@ -41,7 +41,7 @@ This sample requires the following:
 
 2. Select **Add an app**, and enter a friendly name for the application (such as **Console App for Microsoft Graph (Delegated perms)**). Click **Create**.
 
-3. Select the **Mobile and Desktop App** tile and then after the app is created, click the **Skip the guided setup** link in the top right-hand corner. The **delegated permissions** operations in this sample use permissions that are specified in the AuthenticationHelper.cs file. This is why you don't need to assign any permissions to the app on this page.
+3. Select the **Native App** tile and then after the app is created, click the **Skip the guided setup** link in the top right-hand corner. The **delegated permissions** operations in this sample use permissions that are specified in the AuthenticationHelper.cs file. This is why you don't need to assign any permissions to the app on this page.
 
 4. Open the solution and then the Constants.cs file in Visual Studio. 
 
@@ -54,7 +54,7 @@ This sample requires the following:
 
 2. Select **Add an app**, and enter a friendly name for the application (such as **Console App for Microsoft Graph (Application perms)**). Click **Create**.
 
-3. Select the **Service and Daemon App** tile and then after the app is created, click the **Skip the guided setup** link in the top right-hand corner.
+3. Select the **Web** tile and then after the app is created, click the **Skip the guided setup** link in the top right-hand corner.
 
 4. Under **Application Secrets**, select **Generate New Password**. This will create the value you'll supply for **ClientSecret** in the Constants.cs file.  Be sure to copy this secret/password before closing the popup window that displays it. This is the only time you'll be able to see all of it.
 
