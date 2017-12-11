@@ -102,7 +102,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 - [Get access without a user](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service)
 - [Delegated permissions, Application permissions, and effective permissions](https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#delegated-permissions-application-permissions-and-effective-permissions)
 - [Other Microsoft Graph Connect samples](https://github.com/MicrosoftGraph?utf8=%E2%9C%93&query=-Connect)
-- [Microsoft Graph](https://graph.microsoft.io)
+- [Microsoft Graph](https://developer.microsoft.com/en-us/graph)
 
 ## Copyright
 Copyright (c) 2017 Microsoft. All rights reserved.
