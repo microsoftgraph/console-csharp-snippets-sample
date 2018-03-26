@@ -212,7 +212,7 @@ namespace console_csharp_snippets_sample
                      e.Message, e.InnerException != null ? e.InnerException.Message : "");
             }
 
-            // Get the top 10 users and create a recipient list (to be used later)
+            // Create a recipient list.
             IList<Recipient> messageToList = new List<Recipient>();
 
             // Get 10 users
@@ -224,7 +224,12 @@ namespace console_csharp_snippets_sample
                 emailAdress.Address = user.UserPrincipalName;
                 emailAdress.Name = user.DisplayName;
                 messageTo.EmailAddress = emailAdress;
-                messageToList.Add(messageTo);
+
+                // Only uncomment this next line if you want to send this mail to the 
+                // first 10 accounts returned by a call to the graph.microsoft.com/v1.0/users endpoint.
+                // Otherwise, this email will only be sent to the current user.
+
+                //messageToList.Add(messageTo);
             }
 
             // Get current user
