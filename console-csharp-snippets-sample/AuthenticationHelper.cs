@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
-using System.Collections.Generic;
 
 namespace console_csharp_snippets_sample
 {
@@ -78,11 +77,9 @@ namespace console_csharp_snippets_sample
         public static async Task<string> GetTokenForUserAsync()
         {
             AuthenticationResult authResult;
-            IEnumerable<IAccount> accounts = await IdentityClientApp.GetAccountsAsync();
-            IAccount firstAccount = accounts.FirstOrDefault();
             try
             {
-                authResult = await IdentityClientApp.AcquireTokenSilentAsync(Scopes, firstAccount);
+                authResult = await IdentityClientApp.AcquireTokenSilentAsync(Scopes, IdentityClientApp.Users.First());
                 TokenForUser = authResult.AccessToken;
             }
 
@@ -146,12 +143,11 @@ namespace console_csharp_snippets_sample
         /// <summary>
         /// Signs the user out of the service.
         /// </summary>
-        public static async void SignOut()
+        public static void SignOut()
         {
-            IEnumerable<IAccount> accounts = await IdentityClientApp.GetAccountsAsync();
-            foreach (var account in accounts)
+            foreach (var user in IdentityClientApp.Users)
             {
-                await IdentityClientApp.RemoveAsync(account);
+                IdentityClientApp.Remove(user);
             }
             graphClient = null;
             TokenForUser = null;
