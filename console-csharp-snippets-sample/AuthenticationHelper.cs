@@ -35,9 +35,6 @@ namespace console_csharp_snippets_sample
 
         public static PublicClientApplication IdentityClientApp = new PublicClientApplication(clientIdForUser);
         public static ConfidentialClientApplication IdentityAppOnlyApp = new ConfidentialClientApplication(clientIdForApp, Constants.AuthorityUri, Constants.RedirectUriForAppAuthn, new ClientCredential(Constants.ClientSecret), new TokenCache(), new TokenCache());
-        public static string TokenForUser = null;
-        public static string TokenForApp = null;
-        public static DateTimeOffset Expiration;
 
         private static GraphServiceClient graphClient = null;
 
@@ -83,21 +80,12 @@ namespace console_csharp_snippets_sample
             try
             {
                 authResult = await IdentityClientApp.AcquireTokenSilentAsync(Scopes, firstAccount);
-                TokenForUser = authResult.AccessToken;
             }
-
-            catch (Exception)
+            catch (MsalUiRequiredException)
             {
-                if (TokenForUser == null || Expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
-                {
-                    authResult = await IdentityClientApp.AcquireTokenAsync(Scopes);
-
-                    TokenForUser = authResult.AccessToken;
-                    Expiration = authResult.ExpiresOn;
-                }
+                authResult = await IdentityClientApp.AcquireTokenAsync(Scopes);
             }
-
-            return TokenForUser;
+            return authResult.AccessToken;
         }
 
         public static GraphServiceClient GetAuthenticatedClientForApp()
@@ -136,11 +124,8 @@ namespace console_csharp_snippets_sample
         public static async Task<string> GetTokenForAppAsync()
         {
             AuthenticationResult authResult;
-
             authResult = await IdentityAppOnlyApp.AcquireTokenForClientAsync(new string[] { "https://graph.microsoft.com/.default" });
-            TokenForApp = authResult.AccessToken;
-
-            return TokenForApp;
+            return authResult.AccessToken;
         }
 
         /// <summary>
@@ -149,14 +134,12 @@ namespace console_csharp_snippets_sample
         public static async void SignOut()
         {
             IEnumerable<IAccount> accounts = await IdentityClientApp.GetAccountsAsync();
-            foreach (var account in accounts)
+          
+            foreach (var account in accounts.ToArray())
             {
                 await IdentityClientApp.RemoveAsync(account);
             }
             graphClient = null;
-            TokenForUser = null;
-
         }
-
     }
 }
