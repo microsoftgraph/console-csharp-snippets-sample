@@ -134,12 +134,12 @@ namespace console_csharp_snippets_sample
         public static async void SignOut()
         {
             IEnumerable<IAccount> accounts = await IdentityClientApp.GetAccountsAsync();
+          
             foreach (var account in accounts.ToArray())
             {
                 await IdentityClientApp.RemoveAsync(account);
             }
             graphClient = null;
         }
-
     }
 }
