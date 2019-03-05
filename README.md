@@ -23,7 +23,7 @@ The sample uses the Microsoft Authentication Library (MSAL) for authentication. 
 
 If you want to use both types of permissions, you'll need to create and configure two applications in the [Azure Active Directory admin center](https://aad.portal.azure.com), one for **delegated permissions** and another for **application permissions**. The sample is structured so that you can configure only one application if you're interested in only one type of permission. Use the **UserMode** class if you're interested only in **delegated permissions** and the **AppMode** class if you're interested only in **application permissions**.
 
-See [Delegated permissions, Application permissions, and effective permissions](https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#delegated-permissions-application-permissions-and-effective-permissions) for more information about these permission types. Also see [Get access without a user](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service) for more information on **application permissions** specifically.
+See [Delegated permissions, Application permissions, and effective permissions](https://docs.microsoft.com/en-us/graph/permissions-reference#delegated-permissions-application-permissions-and-effective-permissions) for more information about these permission types. Also see [Get access without a user](https://docs.microsoft.com/en-us/graph/auth-v2-service) for more information on **application permissions** specifically.
 
 ## Prerequisites
 
