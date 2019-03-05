@@ -21,7 +21,7 @@ The sample uses the Microsoft Authentication Library (MSAL) for authentication. 
 
 **Application permissions** are used by apps that run without a signed-in user present; you can use this type of permission for apps that run as background services or daemons and that therefore will neither have nor require user consent. Application permissions can only be consented to by a tenant administrator. It is important that you understand that you give this sample a lot of power by providing it admin consent. For example, if you run this sample in **AppMode** against your tenant, you will create a group, add and then remove members of the group, and then delete the group.
 
-If you want to use both types of permissions, you'll need to create and configure two applications in the [Application Registration Portal](https://apps.dev.microsoft.com/), one for **delegated permisssions** and another fro **application permissions**. The sample is structured so that you can configure only one application if you're interested in only one type of permission. Use the **UserMode"** class if you're interested only in **delegated permissions** and the **AppMode** class if you're interested only in **application permissions**.
+If you want to use both types of permissions, you'll need to create and configure two applications in the [Azure Active Directory admin center](https://aad.portal.azure.com), one for **delegated permissions** and another for **application permissions**. The sample is structured so that you can configure only one application if you're interested in only one type of permission. Use the **UserMode** class if you're interested only in **delegated permissions** and the **AppMode** class if you're interested only in **application permissions**.
 
 See [Delegated permissions, Application permissions, and effective permissions](https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#delegated-permissions-application-permissions-and-effective-permissions) for more information about these permission types. Also see [Get access without a user](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service) for more information on **application permissions** specifically.
 
@@ -107,8 +107,8 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
   
 ## Additional resources
 
-* [Get access without a user](https://developer.microsoft.com/en-us/graph/docs/concepts/auth_v2_service)
-* [Delegated permissions, Application permissions, and effective permissions](https://developer.microsoft.com/en-us/graph/docs/concepts/permissions_reference#delegated-permissions-application-permissions-and-effective-permissions)
+* [Get access without a user](https://docs.microsoft.com/en-us/graph/auth-v2-service)
+* [Delegated permissions, Application permissions, and effective permissions](https://docs.microsoft.com/en-us/graph/permissions-reference#delegated-permissions-application-permissions-and-effective-permissions)
 * [Microsoft Graph](https://developer.microsoft.com/en-us/graph)
 
 ## Copyright
