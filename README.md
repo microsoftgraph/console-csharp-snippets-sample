@@ -1,3 +1,18 @@
+---
+page_type: sample
+products:
+- ms-graph
+languages:
+- csharp
+extensions:
+  contentType: samples
+  technologies:
+  - Microsoft Graph
+  - Microsoft identity platform
+  services:
+  - Microsoft identity platform
+  createdDate: 9/8/2017 1:33:44 PM
+---
 # Microsoft Graph C# Console Snippets App
 
 ## Table of contents
