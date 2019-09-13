@@ -4,6 +4,7 @@ products:
 - ms-graph
 languages:
 - csharp
+description: "This Windows console app demonstrates how to perform various operations using the Microsoft Graph client library with both delegated and application permissions. This sample uses the Microsoft Authentication Library (MSAL) for authentication on the Azure AD v2.0 endpoint."
 extensions:
   contentType: samples
   technologies:
