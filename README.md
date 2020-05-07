@@ -1,20 +1,10 @@
----
-page_type: sample
-products:
-- ms-graph
-languages:
-- csharp
-description: "This Windows console app demonstrates how to perform various operations using the Microsoft Graph client library with both delegated and application permissions. This sample uses the Microsoft Authentication Library (MSAL) for authentication on the Azure AD v2.0 endpoint."
-extensions:
-  contentType: samples
-  technologies:
-  - Microsoft Graph 
-  - Microsoft identity platform
-  services:
-  - Microsoft identity platform
-  createdDate: 9/8/2017 1:33:44 PM
----
-# Microsoft Graph C# Console Snippets App
+# [ARCHIVED] Microsoft Graph C# Console Snippets App
+
+## IMPORTANT
+
+**This project is being archived and replaced with the [Build .NET Core apps with the Microsoft Graph SDK training](https://github.com/microsoftgraph/msgraph-training-dotnet-core). As part of the archival process, we're closing all open issues and pull requests.**
+
+**You can continue to use this sample "as-is", but it won't be maintained moving forward. We apologize for any inconvenience.**
 
 ## Table of contents
 
